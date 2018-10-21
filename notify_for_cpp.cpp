@@ -2,18 +2,25 @@
 
 extern "C" {
 extern void nfc_init();
-extern void nfc_start(void(*callback)(int32_t));
+extern void nfc_start(const char*, void(*callback)(int32_t));
 extern void nfc_release();
 }
 
 namespace notify {
 
+static std::function<void(const FileEvent&)> s_callback;
+
 void init() {
     nfc_init();
 }
 
-void start(std::function<void(const FileEvent&)> callback) {
-    nfc_start(nullptr);
+void native_callback(int32_t code) {
+    s_callback(FileEvent {});
+}
+
+void start(const std::string& path, std::function<void(const FileEvent&)> callback) {
+    s_callback = callback;
+    nfc_start(path.c_str(), native_callback);
 }
 
 void release() {

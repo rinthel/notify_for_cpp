@@ -2,11 +2,10 @@
 name = "notify_rust"
 version = "0.1.0"
 authors = ["Rinthel Kwon <rinthel@gmail.com>"]
-edition = "2018"
 
 [dependencies]
 notify = "4.0.0"
 
 [lib]
 name = "notify_rust"
-crate-type = ["staticlib"]
+crate-type = ["dylib"]
