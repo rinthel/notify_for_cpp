@@ -6,7 +6,9 @@ int main(int argc, const char** argv) {
         std::cout << "event type: " << (int)event.type << std::endl;
         std::cout << "event path: " << event.contents << std::endl;
     };
-    notify::start("/Users/rinthel/Desktop", callback);
+    std::string path = "/Users/rinthel/Desktop";
+    notify::stop();
+    notify::start(path, callback);
     std::cout << "press any key to stop" << std::endl;
     getchar();
     notify::stop();

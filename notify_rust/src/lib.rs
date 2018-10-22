@@ -31,9 +31,7 @@ static mut NOTIFIER: Option<Notifier> = None;
 
 #[no_mangle]
 pub extern "C" fn nfc_start(path: *const c_char, callback: fn(i32, *const c_char) -> ()) -> i32 {
-    println!("nfc_start() called");
     let (tx, rx) = channel();
-
     let path = unsafe {
         let path_str = CStr::from_ptr(path).to_str();
         if let Err(e) = path_str {
@@ -107,7 +105,6 @@ pub extern "C" fn nfc_start(path: *const c_char, callback: fn(i32, *const c_char
 
 #[no_mangle]
 pub extern "C" fn nfc_stop() {
-    println!("nfc_release() called");
     unsafe {
         if let Some(ref mut noti) = NOTIFIER {
             noti.on_watching = false;
