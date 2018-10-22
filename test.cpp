@@ -2,15 +2,13 @@
 #include <iostream>
 
 int main(int argc, const char** argv) {
-    std::cout << "hello, world" << std::endl;
-
     auto callback = [](const notify::FileEvent& event) {
-        std::cout << "cpp callback called" << std::endl;
+        std::cout << "event type: " << (int)event.type << std::endl;
+        std::cout << "event path: " << event.contents << std::endl;
     };
-    notify::init();
     notify::start("/Users/rinthel/Desktop", callback);
-    while (true) {
-        
-    }
+    std::cout << "press any key to stop" << std::endl;
+    getchar();
+    notify::stop();
     return 0;
 }

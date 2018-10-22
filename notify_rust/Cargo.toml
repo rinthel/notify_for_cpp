@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["Rinthel Kwon <rinthel@gmail.com>"]
 
 [dependencies]
-notify = "4.0.0"
+notify = "4.0.6"
 
 [lib]
 name = "notify_rust"

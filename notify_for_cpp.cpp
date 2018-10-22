@@ -1,21 +1,19 @@
 #include "notify_for_cpp.h"
 
 extern "C" {
-extern void nfc_init();
-extern void nfc_start(const char*, void(*callback)(int32_t));
-extern void nfc_release();
+extern void nfc_start(const char*, void(*callback)(int32_t, const char*));
+extern void nfc_stop();
 }
 
 namespace notify {
 
 static std::function<void(const FileEvent&)> s_callback;
 
-void init() {
-    nfc_init();
-}
-
-void native_callback(int32_t code) {
-    s_callback(FileEvent {});
+void native_callback(int32_t code, const char* pathOrError) {
+    s_callback(FileEvent {
+        (FileEventType)code,
+        std::string(pathOrError),
+    });
 }
 
 void start(const std::string& path, std::function<void(const FileEvent&)> callback) {
@@ -23,8 +21,8 @@ void start(const std::string& path, std::function<void(const FileEvent&)> callba
     nfc_start(path.c_str(), native_callback);
 }
 
-void release() {
-    nfc_release();
+void stop() {
+    nfc_stop();
 }
 
 }
