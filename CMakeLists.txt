@@ -57,4 +57,7 @@ add_custom_command(TARGET notify_for_cpp_test POST_BUILD
 install(FILES ${NOTIFY_RUST_SHARED_LIB} DESTINATION bin)
 install(TARGETS notify_for_cpp_test DESTINATION bin)
 install(TARGETS notify_for_cpp DESTINATION lib)
+if(WIN32)
+    install(FILES ${NOTIFY_RUST_LINK_LIB} DESTINATION lib)
+endif()
 install(FILES notify_for_cpp.h DESTINATION include)
