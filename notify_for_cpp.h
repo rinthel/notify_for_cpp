@@ -15,7 +15,7 @@ enum FileEventType {
     REMOVE = 6,
     RENAME = 7,
     RESCAN = 8,
-    ERROR = -1,
+    NOTICE_ERROR = -1,
 };
 
 struct FileEvent {
